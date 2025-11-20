@@ -245,17 +245,7 @@ function updateProductSummary(thickness, length, width, price) {
 'ssss':	'todos los cantos rústicos'
 };
     
-    const edgesText = edgeDescriptions[edgeCode] || `configuración personalizada (${edgeCode})`;
-    
-    const skuPrefix = {
-        'tabletop': '31',
-        'kitchen-countertop': '32',
-        'kitchen-island': '33',
-        'bathroom-countertop': '34',
-        'shelf': '35',
-        'other': '36'
-    };
-    
+    const edgesText = edgeDescriptions[edgeCode] || `configuración personalizada (${edgeCode})`;    
     const prefix = skuPrefix[uso] || '36';
     const sku = `${prefix}-${edgeCode}`;  
     const usoText = usageLabels[uso];
