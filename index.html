@@ -154,7 +154,7 @@
                 
                 <div>
                     <p>
-                        <strong>Canto Trasero</strong><br>
+                        <strong>B</strong> - Canto Trasero<br>
                         <label>
                             <input type="radio" name="edge-north" value="recto" checked onchange="updateEdge('north')">
                             Recto (+0€)
@@ -166,7 +166,19 @@
                     </p>
                     
                     <p>
-                        <strong>Canto Frontal</strong><br>
+                        <strong>R</strong> - Canto Derecho<br>
+                        <label>
+                            <input type="radio" name="edge-east" value="recto" checked onchange="updateEdge('east')">
+                            Recto (+0€)
+                        </label>
+                        <label>
+                            <input type="radio" name="edge-east" value="rustico" onchange="updateEdge('east')">
+                            Rústico (+50€)
+                        </label>
+                    </p>
+                    
+                    <p>
+                        <strong>F</strong> - Canto Frontal<br>
                         <label>
                             <input type="radio" name="edge-south" value="recto" checked onchange="updateEdge('south')">
                             Recto (+0€)
@@ -178,25 +190,13 @@
                     </p>
                     
                     <p>
-                        <strong>Canto Izquierdo</strong><br>
+                        <strong>L</strong> - Canto Izquierdo<br>
                         <label>
                             <input type="radio" name="edge-west" value="recto" checked onchange="updateEdge('west')">
                             Recto (+0€)
                         </label>
                         <label>
                             <input type="radio" name="edge-west" value="rustico" onchange="updateEdge('west')">
-                            Rústico (+50€)
-                        </label>
-                    </p>
-                    
-                    <p>
-                        <strong>Canto Derecho</strong><br>
-                        <label>
-                            <input type="radio" name="edge-east" value="recto" checked onchange="updateEdge('east')">
-                            Recto (+0€)
-                        </label>
-                        <label>
-                            <input type="radio" name="edge-east" value="rustico" onchange="updateEdge('east')">
                             Rústico (+50€)
                         </label>
                     </p>
@@ -213,8 +213,7 @@
         <p><strong>Dimensiones:</strong> <span id="productDimensions">--</span></p>
         <p><strong>Cantos:</strong> <span id="productEdges">--</span></p>
         <p><strong>SKU:</strong> <span id="productSKU">--</span></p>
-        <p><strong>Nombre:</strong> <span id="productName">--</span></p>   
-        <p><strong>Producto configurado:</strong> <span id="productConfigured">--</span></p>              
+        <p><strong>Nombre:</strong> <span id="productName">--</span></p>               
         <hr>
         
         <h3>Desglose de precio:</h3>
@@ -241,43 +240,6 @@
         </table>
     </div>
 </section>
-  <!-- Pantalla 4: Resumen y Precio -->
-  <section id="s4" class="panel">
-    <h2>4. Resumen y Precio</h2>
-            <div id="productSummary">
-                <h3>Producto configurado:</h3>
-                <p><strong>Tablero:</strong> <span id="productUsage">--</span></p>
-                <p><strong>Dimensiones:</strong> <span id="productDimensions">--</span></p>
-                <p><strong>Cantos:</strong> <span id="productEdges">--</span></p>
-                <p><strong>SKU:</strong> <span id="productSKU">--</span></p>
-                <p><strong>Nombre:</strong> <span id="productName">--</span></p>              
-                <hr>
-                
-                <h3>Desglose de precio:</h3>
-                <table>
-                    <tr>
-                        <td>Precio base (superficie × grosor):</td>
-                        <td align="right"><span id="priceBase">0.00</span> €</td>
-                    </tr>
-                    <tr>
-                        <td>Cantos rústicos (<span id="rusticEdgesCount">0</span> × 50€):</td>
-                        <td align="right"><span id="priceEdges">0.00</span> €</td>
-                    </tr>
-                    <tr>
-                        <td>Tratamiento especial (uso):</td>
-                        <td align="right"><span id="priceUsage">0.00</span> €</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><hr></td>
-                    </tr>
-                    <tr>
-                        <td><strong>PRECIO TOTAL:</strong></td>
-                        <td align="right"><strong><span id="priceDisplay">0.00</span> €</strong></td>
-                    </tr>
-                </table>
-            </div>
-  </section>
-
   <!-- Pantalla 5: Carrito -->
   <section id="s5" class="panel">
 
