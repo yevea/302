@@ -1,109 +1,111 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de Madera de Olivo - Tienda Online</title>
     <meta name="description" content="Tablero de madera de olivo maciza, hecho a mano en España por un artesano personalmente. Personaliza tamaño y cantos. Envío gratis en España. Garantía de 3 años.">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2196F3">
+    <meta name="theme-color" content="#000000">
     <link rel="apple-touch-icon" href="icon-192.png">
     <script src="https://js.stripe.com/v3/"></script>
-<style>
-  body {
-    margin: 0 auto;
-    max-width: 25rem;
-    font-family: system-ui, sans-serif;
-    overflow-x: hidden;
-  }
+  <style>
+    /* minimal styling */
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#111}
+    body{margin:0}
+    header, section, footer{padding:1.25rem;border-bottom:1px solid #eee}
+    header{background:#fafafa}
+    footer{background:#fafafa}
 
-  .screens {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 120px); /* Ajusta según header/footer */
-    overflow: hidden;
-  }
+    /* navigation buttons (hidden by default) */
+    .mobile-nav{display:none;position:fixed;left:0;right:0;bottom:12px;pointer-events:auto;z-index:40}
+    .mobile-nav .wrap{max-width:640px;margin:0 auto;display:flex;gap:.5rem;justify-content:center;padding:0 1rem}
+    .mobile-nav button{padding:.6rem .9rem;border-radius:8px;border:1px solid #ccc;background:#fff}
 
-  .screen {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background: white;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
+    /* page indicators (dots + numeric) */
+    .page-indicators{display:none}
+    .page-indicators .dots{display:flex;gap:.4rem}
+    .page-indicators span{width:8px;height:8px;border-radius:50%;background:#ccc;display:inline-block}
+    .page-indicators span.active{background:#000}
+    .page-indicators .count{margin-left:.6rem;font-size:.9rem;color:#333}
 
-  .screen.active {
-    left: 0;
-    transform: translateX(0);
-  }
+    /* MOBILE: make each section occupy the viewport and show only the active one */
+    @media (max-width:768px){
+      html,body{height:100%}
+      /* header/footer are kept but animated in/out — you asked to remove differently, so here they slide out when not needed */
+      header, footer{position:fixed;left:0;right:0;z-index:20;transition:transform .28s}
+      header{top:0}
+      footer{bottom:0}
 
-  .screen.prev {
-    left: -100%;
-    transform: translateX(0);
-  }
+      /* hide header/footer visually by default but still accessible if needed */
+      header.hidden{transform:t¡ranslateY(-110%)}
+      footer.hidden{transform:translateY(110%)}
 
-  .nav-buttons {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
-  .nav-buttons button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background: #2196F3;
-    color: white;
-    cursor: pointer;
-  }
-
-  .nav-buttons .btn-prev {
-    background: #999;
-  }
-
-  /* Responsive */
-  @media (min-width: 768px) {
-    .screens {
-      height: auto;
-      overflow: visible;
+      section{display:none;height:100vh;box-sizing:border-box;overflow:auto;border-bottom:0;padding-top:3.25rem;padding-bottom:3.25rem}
+      section.active{display:block}
+      .mobile-nav{display:block}
+      .page-indicators{display:flex;position:fixed;bottom:60px;left:0;right:0;justify-content:center;align-items:center;gap:.5rem;z-index:30}
     }
-    .screen {
-      position: relative;
-      left: auto;
-      transform: none;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .screen.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .nav-buttons {
-      margin-top: 20px;
-    }
-  }
-</style>
+  </style>
 </head>
 <body>
-    <header>
+  <header id="siteHeader">
+
         <h1>Tablero de Madera de Olivo</h1>
         <p>Artesanía española - Personalizable - Envío gratis</p>
         <button id="installBtn">Instalar App</button>
         <div id="cartCount">Carrito: <span>0</span></div>
-    </header>
+  </header>
 
-<main class="screens">
-  <!-- Pantalla 1: Dimensiones -->
-  <section class="screen active" data-index="0">
-    <h2>1. Dimensiones</h2>
+
+  <!-- Pantalla 1: Uso -->
+  <section id="s1" class="panel">
+           <h2>1. Uso</h2>
+            <p>¿Para qué usarás el tablero? Algunos usos requieren tratamiento especial.</p>
+            <div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="tabletop" id="uso-tabletop" checked>
+                        Encimera de mesa (+0€)
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="kitchen-countertop" id="uso-kitchen-countertop">
+                        Encimera de cocina (+100€ - tratamiento especial)
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="kitchen-island" id="uso-kitchen-island">
+                        Isla de cocina (+150€ - tratamiento reforzado)
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="bathroom-countertop" id="uso-bathroom-countertop">
+                        Encimera de baño (+80€ - tratamiento anti-humedad)
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="shelf" id="uso-shelf">
+                        Estante (+0€)
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="uso" value="other" id="uso-other-radio">
+                        Otro (especificar) (+0€)
+                    </label>
+                    <input type="text" id="uso-otro-input" placeholder="¿Para qué lo usarás?">
+                </div>
+          </div>
+  </section>
+
+  <!-- Pantalla 2: Dimensiones -->
+  <section id="s2" class="panel">
+    <h2>2. Dimensiones</h2>
             <p>Los tableros se fabrican a mano con madera de olivo maciza por encargo. Personaliza tu tablero según tus especificaciones.</p>
             <div>
                 <label for="thickness">Grosor (cm):</label>
@@ -131,15 +133,11 @@
                     <button type="button" onclick="changeValue('width', 10)">+10</button>
                 </div>
             </div>
-
-    <div class="nav-buttons">
-      <button class="btn-next">Siguiente →</button>
-    </div>
   </section>
 
-  <!-- Pantalla 2: Cantos -->
-  <section class="screen" data-index="1">
-    <h2>2. Cantos</h2>
+  <!-- Pantalla 3: Cantos -->
+  <section id="s3" class="panel">
+    <h2>3. Cantos</h2>
       <p>Elige el tipo de canto para cada lado: <strong>recto</strong> (cortado a máquina, +0€) o <strong>rústico</strong> (borde natural del árbol, +50€ por canto).</p>
             <div>
                 <svg id="board-svg" role="img" aria-label="Diagrama de configuración de cantos" width="240" height="180" viewBox="0 0 240 180">
@@ -147,11 +145,11 @@
                     <path id="edge-east" d="M210,60 V140" stroke="#999" stroke-width="6" fill="none"/>
                     <path id="edge-south" d="M210,140 H30" stroke="#999" stroke-width="6" fill="none"/>
                     <path id="edge-west" d="M30,140 V60" stroke="#999" stroke-width="6" fill="none"/>
-                    <text x="120" y="20" text-anchor="middle" font-size="12" fill="#667eea">DIAGRAMA DE CANTOS</text>
+                    <text x="120" y="20" text-anchor="middle" font-size="12" fill="#666">DIAGRAMA DE CANTOS</text>
                     <text x="120" y="48" text-anchor="middle" font-size="13" fill="#333">Trasero</text>
-                    <text x="225" y="35" text-anchor="start" font-size="13" fill="#333" transform="rotate(90,205,60)">Derecho</text>
+                    <text x="225" y="43" text-anchor="start" font-size="13" fill="#333" transform="rotate(90,205,60)">Derecho</text>
                     <text x="120" y="164" text-anchor="middle" font-size="13" fill="#333">Frontal</text>
-                    <text x="-25" y="73" text-anchor="end" font-size="13" fill="#333" transform="rotate(-90,15,60)">Izquierdo</text>
+                    <text x="-55" y="63" text-anchor="start" font-size="13" fill="#333" transform="rotate(-90,15,60)">Izquierdo</text>
                 </svg>
                 
                 <div>
@@ -206,66 +204,10 @@
                 
                 <div id="edgesSummary"></div>
             </div>
-    <div class="nav-buttons">
-      <button class="btn-prev">← Anterior</button>
-      <button class="btn-next">Siguiente →</button>
-    </div>
   </section>
-
-  <!-- Pantalla 3: Uso -->
-  <section class="screen" data-index="2">
-
-            <h2>3. Uso</h2>
-            <p>¿Para qué usarás el tablero? Algunos usos requieren tratamiento especial.</p>
-            <div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="tabletop" id="uso-tabletop" checked>
-                        Encimera de mesa (+0€)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="kitchen-countertop" id="uso-kitchen-countertop">
-                        Encimera de cocina (+100€ - tratamiento especial)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="kitchen-island" id="uso-kitchen-island">
-                        Isla de cocina (+150€ - tratamiento reforzado)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="bathroom-countertop" id="uso-bathroom-countertop">
-                        Encimera de baño (+80€ - tratamiento anti-humedad)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="shelf" id="uso-shelf">
-                        Estante (+0€)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="uso" value="other" id="uso-other-radio">
-                        Otro (especificar) (+0€)
-                    </label>
-                    <input type="text" id="uso-otro-input" placeholder="¿Para qué lo usarás?">
-                </div>
-                
-                <div id="usageSummary"></div>
-            </div>
-    <div class="nav-buttons">
-      <button class="btn-prev">← Anterior</button>
-      <button class="btn-next">Siguiente →</button>
-    </div>
-  </section>
-
-  <!-- Pantalla 4: Resumen -->
-  <section class="screen" data-index="3">
+  
+  <!-- Pantalla 4: Resumen y Precio -->
+  <section id="s4" class="panel">
     <h2>4. Resumen y Precio</h2>
             <div id="productSummary">
                 <h3>Producto configurado:</h3>
@@ -300,14 +242,11 @@
                     </tr>
                 </table>
             </div>
-    <div class="nav-buttons">
-      <button class="btn-prev">← Anterior</button>
-      <button class="btn-next">Siguiente →</button>
-    </div>
   </section>
 
   <!-- Pantalla 5: Carrito -->
-  <section class="screen" data-index="4">
+  <section id="s5" class="panel">
+
     <h2>5. Carrito</h2>
             <p>Añade el tablero configurado al carrito. Puedes añadir múltiples tableros con diferentes configuraciones.</p>
             <div>
@@ -323,14 +262,10 @@
                 <div id="totalPrice"></div>
                 <button id="clearCart">Vaciar Carrito</button>
             </div>
-    <div class="nav-buttons">
-      <button class="btn-prev">← Anterior</button>
-      <button class="btn-next">Siguiente →</button>
-    </div>
   </section>
 
   <!-- Pantalla 6: Pago -->
-  <section class="screen" data-index="5">
+  <section id="s6" class="panel">
     <h2>6. Pago</h2>
     <p>Procede al pago seguro con Stripe. <strong>Pedido mínimo: 175 €</strong></p>
             <div>
@@ -339,17 +274,153 @@
                 </button>
                 <p><small>Pago 100% Seguro • Entrega en 3 Semanas</small></p>
             </div>
-    <div class="nav-buttons">
-      <button class="btn-prev">← Anterior</button>
-      <button id="checkout" disabled>💳 Completar Pedido →</button>
-    </div>
   </section>
-</main>
 
-    <footer>
-        <p><strong>tablero yevea</strong>&nbsp;&copy; 2025&nbsp;todos los&nbsp;derechos reservados</p>
-    </footer>
 
-    <script src="app.js"></script>
+
+
+
+
+  <footer id="siteFooter">
+    <small>Footer content — visible on desktop.</small>
+  </footer>
+
+  <!-- Prev/Next navigation (only shown on small screens via CSS) -->
+  <div class="mobile-nav" aria-hidden="false">
+    <div class="wrap">
+      <button id="prevBtn" aria-label="Previous">◀ Previous</button>
+      <button id="nextBtn" aria-label="Next">Next ▶</button>
+    </div>
+  </div>
+
+  <!-- Page indicators (dots + numeric counter) -->
+  <div class="page-indicators" aria-hidden="false">
+    <div class="dots" aria-hidden="true"></div>
+    <div class="count" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    (function(){
+      // small helper: swipe listeners
+      function addSwipeListeners(el, onSwipeLeft, onSwipeRight){
+        let startX = null;
+        let startY = null;
+        el.addEventListener('touchstart', e=>{
+          if(e.touches && e.touches.length === 1){
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          }
+        }, {passive:true});
+        el.addEventListener('touchend', e=>{
+          if(startX === null) return;
+          const dx = e.changedTouches[0].clientX - startX;
+          const dy = e.changedTouches[0].clientY - startY;
+          // ignore mostly-vertical swipes
+          if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40){
+            if(dx < 0) onSwipeLeft(); else onSwipeRight();
+          }
+          startX = null; startY = null;
+        }, {passive:true});
+      }
+
+      const panels = Array.from(document.querySelectorAll('section.panel'));
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const indicators = document.querySelector('.page-indicators');
+      const dotsContainer = indicators.querySelector('.dots');
+      const countEl = indicators.querySelector('.count');
+      const header = document.getElementById('siteHeader');
+      const footer = document.getElementById('siteFooter');
+      let index = 0;
+
+      const mq = window.matchMedia('(max-width:768px)');
+
+      // update indicators (dots + count)
+      function updateIndicators(){
+        dotsContainer.innerHTML = panels.map((_,i)=>`<span class="${i===index?'active':''}" aria-hidden="true"></span>`).join('');
+        countEl.textContent = `${index+1} / ${panels.length}`;
+      }
+
+      // show/hide header/footer differently on mobile: we apply .hidden class to push them away
+      function updateHeaderFooterForMobile(isMobile){
+        if(!isMobile){
+          header.classList.remove('hidden');
+          footer.classList.remove('hidden');
+          return;
+        }
+        // on mobile hide header/footer by default; when user scrolls up we could show them (left simple)
+        header.classList.add('hidden');
+        footer.classList.add('hidden');
+      }
+
+      // main mobile view updater
+      function updateMobileView(){
+        const isMobile = mq.matches;
+        updateHeaderFooterForMobile(isMobile);
+
+        if(!isMobile){
+          // desktop: show all sections
+          panels.forEach(p => p.classList.remove('active'));
+          document.querySelector('.mobile-nav').style.display = 'none';
+          indicators.style.display = 'none';
+          document.body.style.overflow = '';
+          return;
+        }
+
+        // mobile: only show the active panel
+        panels.forEach((p,i)=> p.classList.toggle('active', i === index));
+        document.querySelector('.mobile-nav').style.display = '';
+        indicators.style.display = '';
+        document.body.style.overflow = 'hidden';
+
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === panels.length - 1;
+        updateIndicators();
+
+        // update URL hash (non-destructive)
+        try{ history.replaceState && history.replaceState(null, '', '#'+panels[index].id); }catch(e){}
+      }
+
+      // navigation handlers
+      prevBtn.addEventListener('click', ()=>{ if(index > 0){ index--; updateMobileView(); }});
+      nextBtn.addEventListener('click', ()=>{ if(index < panels.length -1){ index++; updateMobileView(); }});
+
+      // keyboard support for mobile-like navigation
+      window.addEventListener('keydown', (e)=>{
+        if(!mq.matches) return; // only when mobile
+        if(e.key === 'ArrowRight' || e.key === 'PageDown') { if(index < panels.length-1) { index++; updateMobileView(); }}
+        if(e.key === 'ArrowLeft'  || e.key === 'PageUp')   { if(index > 0) { index--; updateMobileView(); }}
+      });
+
+      // react to viewport changes
+      if(mq.addEventListener) mq.addEventListener('change', updateMobileView); else mq.addListener(updateMobileView);
+
+      // attach swipe to each panel
+      panels.forEach(p=> addSwipeListeners(p, ()=>{ if(index<panels.length-1){ index++; updateMobileView(); }}, ()=>{ if(index>0){ index--; updateMobileView(); }}));
+
+      // initialize from hash if present
+      const hash = location.hash.replace('#','');
+      if(hash){
+        const idx = panels.findIndex(p=>p.id === hash);
+        if(idx >=0) index = idx;
+      }
+
+      // initial render
+      updateMobileView();
+
+      // optional: show header/footer when user scrolls close to top/bottom of each panel (simple heuristic)
+      panels.forEach(p=>{
+        p.addEventListener('scroll', ()=>{
+          if(!mq.matches) return;
+          // if scrolled near top, show header for a moment; near bottom, show footer
+          if(p.scrollTop < 40) header.classList.remove('hidden'); else header.classList.add('hidden');
+          if(p.scrollHeight - p.clientHeight - p.scrollTop < 40) footer.classList.remove('hidden'); else footer.classList.add('hidden');
+        }, {passive:true});
+      });
+    })();
+  </script>
+
+
+<script src="app.js"></script>
 </body>
 </html>
