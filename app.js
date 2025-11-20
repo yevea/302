@@ -227,23 +227,23 @@ function updateProductSummary(thickness, length, width, price) {
         .join('');
     
     const edgeDescriptions = {
-        'ssss': 'todos los cantos rústicos',
-        'iiii': 'todos los cantos rectos',
-        'sisi': 'cantos longitudinales rústicos | transversales rectos',
-        'isis': 'cantos longitudinales rectos | transversales rústicos',
-        'isss': 'canto trasero recto | resto rústicos',
-        'siss': 'canto frontal recto | resto rústicos',
-        'sssi': 'canto derecho recto | resto rústicos',
-        'ssii': 'cantos derechos rectos | resto rústicos',
-        'issi': 'cantos trasero y derecho rectos | resto rústicos',
-        'iisi': 'cantos trasero e izquierdo rectos | resto rústicos',
-        'iiss': 'cantos trasero y frontal rectos | resto rústicos',
-        'siis': 'cantos frontal y derecho rectos | resto rústicos',
-        'sisi': 'cantos frontal e izquierdo rectos | resto rústicos',
-        'siii': 'canto izquierdo rústico | resto rectos',
-        'isii': 'canto frontal rústico | resto rectos',
-        'iisi': 'canto derecho rústico | resto rectos'
-    };
+'iiii': 'todos los cantos rectos',
+'iiis':	'canto izquierdo rústico | resto rectos',
+'iisi':	'canto frontal rústico | resto rectos',
+'iiss':	'cantos frontal e izquierdo rústicos | resto rectos',
+'isii':	'canto derecho rústico | resto rectos',
+'isis':	'cantos longitudinales rectos | transversales rústicos',
+'issi':	'cantos derecho y frontal rústicos | resto rectos',
+'isss':	'canto trasero recto | resto rústicos',
+'siii':	'canto trasero rústico | resto rectos',
+'siis':	'cantos trasero e izquierdo rústicos | resto rectos',
+'sisi':	'cantos longitudinales rústicos | transversales rectos',
+'siss':	'canto derecho recto | resto rústicos',
+'ssii':	'cantos trasero y derecho rústicos | resto rectos',
+'ssis':	'canto frontal recto | resto rústicos',
+'sssi':	'canto izquierdo recto | resto rústicos',
+'ssss':	'todos los cantos rústicos'
+};
     
     const edgesText = edgeDescriptions[edgeCode] || `configuración personalizada (${edgeCode})`;
     
