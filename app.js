@@ -269,7 +269,7 @@ function updateProductSummary(thickness, length, width, price) {
     };
     
     const usoText = usageLabels[uso];
-    const productName = `${usoText} ${length}x${width}x${thickness} cm, ${edgesText}`;
+    const productName = `${skuText}. ${usoText}, ${length}x${width}x${thickness}cm, ${edgesText}`;
     
     // Actualizar elementos del DOM
     const skuEl = document.getElementById('productSKU');
@@ -294,13 +294,6 @@ function generateProductName() {
     const edgeCode = ['north','east','south','west']
         .map(s => edges[s] === 'rustico' ? 's' : 'i')
         .join('');
-    
-    const edgeDescriptions = {
-        'ssss': 'todos los cantos rústicos',
-        'iiii': 'todos los cantos rectos',
-        'sisi': 'cantos longitudinales rústicos | transversales rectos',
-        'isis': 'cantos longitudinales rectos | transversales rústicos'
-    };
     
     const edgesText = edgeDescriptions[edgeCode] || `configuración personalizada (${edgeCode})`;
     
