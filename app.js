@@ -257,17 +257,7 @@ function updateProductSummary(thickness, length, width, price) {
     };
     
     const prefix = skuPrefix[uso] || '36';
-    const sku = `${prefix}-${edgeCode}`;
-    
-    const usageLabels = {
-        'tabletop': 'Encimera de mesa',
-        'kitchen-countertop': 'Encimera de cocina',
-        'kitchen-island': 'Isla de cocina',
-        'bathroom-countertop': 'Encimera de baño',
-        'shelf': 'Estante',
-        'other': usoOtros || 'Otro tablero'
-    };
-    
+    const sku = `${prefix}-${edgeCode}`;  
     const usoText = usageLabels[uso];
     const productName = `${skuText}. ${usoText}, ${length}x${width}x${thickness}cm, ${edgesText}`;
     
