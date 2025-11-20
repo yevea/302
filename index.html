@@ -165,7 +165,7 @@
                         </label>
                     </div>
                     
-                    <div>
+                    <p>
                         <strong>Canto Frontal</strong><br>
                         <label>
                             <input type="radio" name="edge-south" value="recto" checked onchange="updateEdge('south')">
@@ -175,9 +175,9 @@
                             <input type="radio" name="edge-south" value="rustico" onchange="updateEdge('south')">
                             Rústico (+50€)
                         </label>
-                    </div>
+                    </p>
                     
-                    <div>
+                    <d>
                         <strong>Canto Izquierdo</strong><br>
                         <label>
                             <input type="radio" name="edge-west" value="recto" checked onchange="updateEdge('west')">
@@ -205,7 +205,41 @@
                 <div id="edgesSummary"></div>
             </div>
   </section>
-  
+<section id="s4" class="panel">
+    <h2>4. Resumen y Precio</h2>
+    <div id="productSummary">
+        <h3>Producto configurado:</h3>
+        <p><strong>Producto:</strong> <span id="productType">--</span></p>
+        <p><strong>Dimensiones:</strong> <span id="productDimensions">--</span></p>
+        <p><strong>Cantos:</strong> <span id="productEdges">--</span></p>
+        <p><strong>SKU:</strong> <span id="productSKU">--</span></p>
+        <p><strong>Producto configurado:</strong> <span id="productConfigured">--</span></p>              
+        <hr>
+        
+        <h3>Desglose de precio:</h3>
+        <table>
+            <tr>
+                <td>Precio base (superficie × grosor):</td>
+                <td align="right"><span id="priceBase">0.00</span> €</td>
+            </tr>
+            <tr>
+                <td>Cantos rústicos (<span id="rusticEdgesCount">0</span> × 50€):</td>
+                <td align="right"><span id="priceEdges">0.00</span> €</td>
+            </tr>
+            <tr>
+                <td>Tratamiento especial (uso):</td>
+                <td align="right"><span id="priceUsage">0.00</span> €</td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            <tr>
+                <td><strong>PRECIO TOTAL:</strong></td>
+                <td align="right"><strong><span id="priceDisplay">0.00</span> €</strong></td>
+            </tr>
+        </table>
+    </div>
+</section>
   <!-- Pantalla 4: Resumen y Precio -->
   <section id="s4" class="panel">
     <h2>4. Resumen y Precio</h2>
